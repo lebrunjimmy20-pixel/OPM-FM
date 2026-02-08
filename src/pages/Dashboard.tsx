@@ -14,22 +14,16 @@ const Dashboard = () => {
 
                     {/* Top Row: Stats */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <StatCard
-                            title="Electricity"
-                            value="2,196 gal"
-                            trend={12}
-                            trendLabel="+10 from last month"
-                            icon="zap"
-                            color="emerald" // Green icon container per request
-                        />
-                        <StatCard
-                            title="Plants"
-                            value="27"
-                            trend={-12}
-                            trendLabel="-40 from last month"
-                            icon="leaf"
-                            color="blue" // Light blue icon container (KEEP THIS BLUE per request)
-                        />
+                        <div className="col-span-1 md:col-span-2">
+                            <StatCard
+                                title="Electricity"
+                                value="2,196 kWh"
+                                trend={12}
+                                trendLabel="+10 from last month"
+                                icon="zap"
+                                color="emerald" // Green icon container per request
+                            />
+                        </div>
                     </div>
 
                     {/* Middle Row: Chart */}

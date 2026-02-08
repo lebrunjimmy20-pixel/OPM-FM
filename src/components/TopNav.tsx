@@ -70,13 +70,13 @@ const TopNav = ({ onMenuClick }: TopNavProps) => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                    <button className="flex items-center space-x-2 px-4 py-2 bg-white/90 hover:bg-white border border-gray-200/70 rounded-xl text-sm font-semibold text-gray-700 transition shadow-[0_1px_0_rgba(15,23,42,0.04),0_12px_32px_-18px_rgba(15,23,42,0.28)] hover:shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_44px_-22px_rgba(15,23,42,0.32)] backdrop-blur-sm">
+                    <button className="hidden md:flex items-center space-x-2 px-4 py-2 bg-white/90 hover:bg-white border border-gray-200/70 rounded-xl text-sm font-semibold text-gray-700 transition shadow-[0_1px_0_rgba(15,23,42,0.04),0_12px_32px_-18px_rgba(15,23,42,0.28)] hover:shadow-[0_1px_0_rgba(15,23,42,0.04),0_18px_44px_-22px_rgba(15,23,42,0.32)] backdrop-blur-sm">
                         <Calendar className="w-4 h-4 text-gray-500" />
                         <span>Mon, 7 July 2025</span>
                         <ChevronDown className="w-4 h-4 text-gray-400 ml-2" />
                     </button>
 
-                    <button className="flex items-center space-x-2 px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold shadow-[0_14px_40px_-18px_rgba(16,185,129,0.85),0_10px_18px_-14px_rgba(15,23,42,0.35)] hover:shadow-[0_20px_52px_-22px_rgba(16,185,129,0.90),0_14px_24px_-18px_rgba(15,23,42,0.38)] transition hover:-translate-y-0.5">
+                    <button className="hidden md:flex items-center space-x-2 px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold shadow-[0_14px_40px_-18px_rgba(16,185,129,0.85),0_10px_18px_-14px_rgba(15,23,42,0.35)] hover:shadow-[0_20px_52px_-22px_rgba(16,185,129,0.90),0_14px_24px_-18px_rgba(15,23,42,0.38)] transition hover:-translate-y-0.5">
                         <Download className="w-4 h-4" />
                         <span>Export</span>
                     </button>

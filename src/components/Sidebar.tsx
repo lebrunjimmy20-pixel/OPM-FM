@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { Home, Zap, Monitor, Target, BarChart2, Settings, HelpCircle, ChevronRight, Search, ChevronDown, Users } from 'lucide-react';
+import { Home, Zap, Monitor, Target, BarChart2, Settings, HelpCircle, ChevronRight, Search, ChevronDown, Users, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ReferralModal from './ReferralModal';
 
-const Sidebar = () => {
+interface SidebarProps {
+    isOpen?: boolean;
+    onClose?: () => void;
+}
+
+const Sidebar = ({ isOpen = false, onClose }: SidebarProps) => {
     const location = useLocation();
     const [isEnergyOpen, setIsEnergyOpen] = useState(true);
     const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
@@ -14,11 +19,21 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="h-screen w-64 bg-white/90 border-r border-gray-100 flex flex-col fixed left-0 top-0 overflow-hidden font-sans z-20 backdrop-blur-sm">
+        <div className={`
+            h-screen w-64 bg-white/90 border-r border-gray-100 flex flex-col fixed left-0 top-0 overflow-hidden font-sans z-30 backdrop-blur-sm
+            transform transition-transform duration-300 ease-in-out
+            ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
+        `}>
             {/* Logo Section */}
             <div className="px-6 pt-10 pb-6">
-                <div className="w-full flex items-center overflow-visible pr-[5px]">
-                    <img src="/logo.png" alt="OPM.FM Logo" className="w-full h-auto object-contain" />
+                <div className="w-full flex items-center justify-between overflow-visible pr-[5px]">
+                    <img src="/logo.png" alt="OPM.FM Logo" className="w-32 h-auto object-contain" />
+                    <button
+                        onClick={onClose}
+                        className="md:hidden p-1 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
 
@@ -45,6 +60,7 @@ const Sidebar = () => {
             <nav className="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
                 <Link
                     to="/"
+                    onClick={onClose}
                     className={`flex items-center px-4 py-3.5 text-base font-bold rounded-xl transition-all relative overflow-hidden group ${isActive('/')
                         ? 'text-emerald-700 bg-white shadow-[0_4px_20px_-10px_rgba(16,185,129,0.3)] border border-emerald-50/50'
                         : 'text-gray-600 hover:bg-gray-50'
@@ -74,14 +90,14 @@ const Sidebar = () => {
 
                     {isEnergyOpen && (
                         <div className="ml-4 pl-4 border-l border-gray-100 space-y-1 mt-1 mb-2">
-                            <Link to="/electricity" className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/electricity') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Electricity Usage</Link>
-                            <Link to="/water-consumption" className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/water-consumption') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Water Consumption</Link>
-                            <Link to="/gas-tracking" className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/gas-tracking') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Gas Flow Tracking</Link>
+                            <Link to="/electricity" onClick={onClose} className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/electricity') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Electricity Usage</Link>
+                            <Link to="/water-consumption" onClick={onClose} className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/water-consumption') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Water Consumption</Link>
+                            <Link to="/gas-tracking" onClick={onClose} className={`block px-4 py-2 text-sm rounded-lg transition-colors ${isActive('/gas-tracking') ? 'text-emerald-700 font-bold bg-emerald-50/50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}`}>Gas Flow Tracking</Link>
                         </div>
                     )}
                 </div>
 
-                <Link to="/devices" className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/devices') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <Link to="/devices" onClick={onClose} className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/devices') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
                     <Monitor className={`w-5 h-5 mr-3 ${isActive('/devices') ? 'text-emerald-600' : 'text-gray-400'}`} />
                     Devices & Sensors
                 </Link>
@@ -90,13 +106,14 @@ const Sidebar = () => {
                     <p className="text-xs font-medium text-gray-400 mb-2">Reports</p>
                 </div>
 
-                <Link to="/sustainability-goals" className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/sustainability-goals') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <Link to="/sustainability-goals" onClick={onClose} className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/sustainability-goals') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
                     <Target className={`w-5 h-5 mr-3 ${isActive('/sustainability-goals') ? 'text-emerald-600' : 'text-gray-400'}`} />
                     Sustainability Goals
                 </Link>
 
                 <Link
                     to="/reports"
+                    onClick={onClose}
                     className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${isActive('/reports') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'
                         }`}
                 >
@@ -107,11 +124,11 @@ const Sidebar = () => {
 
             {/* Bottom Section */}
             <div className="p-4 space-y-1">
-                <Link to="/settings" className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/settings') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <Link to="/settings" onClick={onClose} className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/settings') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
                     <Settings className={`w-5 h-5 mr-3 ${isActive('/settings') ? 'text-emerald-600' : 'text-gray-400'}`} />
                     Settings
                 </Link>
-                <Link to="/help" className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/help') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <Link to="/help" onClick={onClose} className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors ${isActive('/help') ? 'text-emerald-700 font-bold bg-emerald-50' : 'text-gray-600 hover:bg-gray-50'}`}>
                     <HelpCircle className={`w-5 h-5 mr-3 ${isActive('/help') ? 'text-emerald-600' : 'text-gray-400'}`} />
                     Help & Support
                 </Link>

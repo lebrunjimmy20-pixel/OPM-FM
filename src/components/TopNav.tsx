@@ -1,9 +1,13 @@
-import { Bell, Calendar, Download, User, Settings, LogOut, UserRoundPen, ChevronDown } from 'lucide-react';
+import { Bell, Calendar, Download, User, Settings, LogOut, UserRoundPen, ChevronDown, Menu } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from './auth/AuthContext';
 
-const TopNav = () => {
+interface TopNavProps {
+    onMenuClick?: () => void;
+}
+
+const TopNav = ({ onMenuClick }: TopNavProps) => {
     const { user, signOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -53,9 +57,15 @@ const TopNav = () => {
     };
 
     return (
-        <header className="fixed top-0 right-0 left-64 z-10 h-16 bg-transparent border-none font-sans">
-            <div className="mx-auto flex h-full w-full max-w-[1320px] items-center justify-between px-8">
-                <div className="flex items-center">
+        <header className="fixed top-0 right-0 left-0 md:left-64 z-10 h-16 bg-transparent border-none font-sans transition-[left] duration-300">
+            <div className="mx-auto flex h-full w-full max-w-[1320px] items-center justify-between px-4 md:px-8">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={onMenuClick}
+                        className="md:hidden p-2 -ml-2 text-gray-600 hover:bg-gray-100/50 rounded-lg transition-colors"
+                    >
+                        <Menu className="w-6 h-6" />
+                    </button>
                     <h1 className="text-xl font-black tracking-tight text-gray-900">{getPageTitle()}</h1>
                 </div>
 
